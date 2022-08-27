@@ -1,0 +1,29 @@
+%Problem 2 Part c
+clear all ; 
+clc; 
+
+syms C R
+C = 1;
+R = 1;
+
+G = tf([-C*R 0 1],[-C*R 2 1])
+bode(G)
+
+%% Prblm 2 Part D
+
+syms V0 V1 V2 I0 IA IB IC ID S RB RC CA CD 
+RB = R;
+CA = C/2 ;
+CD = 2*R;
+RC = R;
+IA= (V1-V0)*(S*CA);
+IB = (V2-V0)/RB;
+IC = (V2-V1)/RC;
+ID= (-V2)*(S*CD);
+eqn1 = IB + IC - ID ==0;
+eqn2 = IA - IB ==0;
+eqn3 = IA - IC ==0;
+SOL= solve ( eqn1 , eqn2 , eqn3  , IA , IB , IC, ID ) ;
+
+
+[A,B] = equationsToMatrix([eqn1, eqn2, eqn3, IA , IB , IC, ID], [V0, V1, V2])
