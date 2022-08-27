@@ -1,0 +1,35 @@
+%%Problem 1 Bode Plot
+
+clear all ; 
+clc; 
+
+syms C R
+C = 1;
+R = 1;
+
+G = tf([5*C*R 2], [4*(R^2)*(C^2) C*R 2])
+bode(G)
+
+%% Prblm 1 Part D
+
+syms V0 V1 V2 I0 IA IB IC ID S RA RD CB CC 
+RA = 2*R;
+CB = C ;
+CC = C;
+RD = R/2;
+IA= (V1-V0)/RA;
+IB = (V2-V0)*(S*CB);
+IC = (V2-V1)*(S*CC);
+ID= (-V2)/RD;
+eqn1 = IB + IC - 2*ID ==0;
+eqn2 = IA - IC ==0;
+eqn3 = -IA - IB ==0;
+SOL= solve ( eqn1 , eqn2 , eqn3  , IA , IB , IC, ID ) ;
+
+
+[A,B] = equationsToMatrix([eqn1, eqn2, eqn3, IA , IB , IC, ID], [V0, V1, V2])
+
+
+
+
+
